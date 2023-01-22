@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\StoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, "index"])->name("main");
+
+Route::post('post/create', [PostsController::class, "create"])->name("posts.create");
+
+Route::match(["get", "post"], 'stories/create', [StoriesController::class, "create"])->name("stories.create");
